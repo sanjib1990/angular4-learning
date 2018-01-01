@@ -1,0 +1,49 @@
+<h1>Contact Form</h1>
+<contact-form></contact-form>
+<course-form></course-form>
+<bootstrap-panel>
+    <ng-container class="heading">
+        This is the new Heading
+    </ng-container>
+    <ng-container class="body">
+        <h2>This is a new Body</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid distinctio dolor earum ex ipsum modi
+            nesciunt? Amet commodi cumque dolorem illum mollitia nam porro quas veritatis voluptates. Illo, molestias,
+            placeat.
+        </p>
+    </ng-container>
+</bootstrap-panel>
+
+<h2>ZIPPY</h2>
+<div class="row">
+    <app-zippy title="Shopping">
+        This is the Body
+    </app-zippy>
+
+    <app-zippy title="Blessing">
+        This is the Body Blessing
+    </app-zippy>
+</div>
+<h2>
+    {{ getTitle() }}
+    <app-favourite [isFav]="isFav" (favChange)="onFavChange($event)"></app-favourite>
+    <span><i class="glyphicon" [class.glyphicon-ok]="isFav"></i></span>
+</h2>
+<img src="{{imgUrl}}" alt="IMAGE">
+<img [src]="imgUrl" alt="IMAGE">
+<div class="row">
+    <label for="titleText">Title Text</label>
+    <input type="text" id="titleText" [(ngModel)]="titleText">
+</div>
+<div class="row fav">
+    {{titleText|titleCase}}
+</div>
+<div class="row">
+    <label for="sampleFormat">Sample Format</label>
+    <input type="text" id="sampleFormat" [(ngModel)]="sampleFormat" [appInputFormat]="'lowercase'">
+</div>
+<br>
+<ul>
+    <li *ngFor="let color of getColors()"> {{ color }}</li>
+</ul>

@@ -1,0 +1,20 @@
+<span class="fav" (click)="onFavClick()">
+    <i
+        class="glyphicon"
+        [ngClass]="{
+            'glyphicon-star': outputArgs.isFav,
+            'glyphicon-star-empty': !outputArgs.isFav
+        }"></i>
+</span>
+
+<div *ngIf="outputArgs.isFav; then hasCourses else noCourse"></div>
+<div class="row">
+    <div [hidden]="outputArgs.isFav">Hidden</div>
+    <div [hidden]="!outputArgs.isFav">Not Hidden</div>
+</div>
+<ng-template #hasCourses>
+    List of courses
+</ng-template>
+<ng-template #noCourse>
+    No Courses
+</ng-template>

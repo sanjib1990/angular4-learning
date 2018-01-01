@@ -1,0 +1,16 @@
+<bootstrap-panel [showBody]="showBody" (click)="onClick()">
+    <ng-container class="heading">
+        {{title}}
+        <span class="pull-right">
+            <i
+                class="glyphicon"
+                [ngClass]="{
+                'glyphicon-chevron-up': showBody,
+                'glyphicon-chevron-down': !showBody}">
+            </i>
+        </span>
+    </ng-container>
+    <ng-container class="body">
+        <ng-content></ng-content>
+    </ng-container>
+</bootstrap-panel>

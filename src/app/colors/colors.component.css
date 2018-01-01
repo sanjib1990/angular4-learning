@@ -1,0 +1,4 @@
+.fav:hover{
+    text-decoration-style: dotted;
+    cursor: crosshair;
+}

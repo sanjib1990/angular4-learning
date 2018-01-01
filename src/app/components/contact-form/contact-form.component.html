@@ -1,0 +1,54 @@
+<h1>Template Form</h1>
+<form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)">
+    <div class="form-group" ngModelGroup="contact" #contact="ngModelGroup">
+        <label for="firstName">First Name:</label>
+        <input id="firstName" name="firstName" #firstname="ngModel" type="text" class="form-control" ngModel
+               (change)="logChange(firstname)" required minlength="3" maxlength="20">
+        <div class="alert alert-danger" *ngIf="firstname.touched && firstname.invalid">
+            <div *ngIf="firstname.errors.required">firstname is required</div>
+            <div *ngIf="firstname.errors.minlength">firstname minimum length is
+                {{firstname.errors.minlength.requiredLength}}
+            </div>
+            <div *ngIf="firstname.errors.maxlength">firstname maximum length is
+                {{firstname.errors.maxlength.requiredLength}}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="comment">Comment: </label>
+        <textarea name="comment" id="comment" #comment="ngModel" cols="30" rows="10" class="form-control" ngModel
+                  (change)="logChange(comment)" required minlength="3" maxlength="200"></textarea>
+        <div class="alert alert-danger" *ngIf="comment.touched && comment.invalid">
+            <div *ngIf="comment.errors.required">Comment is required</div>
+            <div *ngIf="comment.errors.minlength">Comment minimum length is
+                {{comment.errors.minlength.requiredLength}}
+            </div>
+            <div *ngIf="comment.errors.maxlength">Comment maximum length is
+                {{comment.errors.maxlength.requiredLength}}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="contactMethod">Select</label>
+        <select name="contactMethod" ngModel id="contactMethod" class="form-control">
+            <option value="" selected> --- select ---</option>
+            <option *ngFor="let method of contactMethod" [ngValue]="method.id">{{method.name}}</option>
+        </select>
+    </div>
+
+    <div class="checkbox">
+        <label for="">
+            <input type="checkbox" ngModel name="isSubscribed"> Subscribe
+        </label>
+    </div>
+
+    <div class="radio" *ngFor="let method of contactMethod">
+        <label for="">
+            <input type="radio" ngModel name="contactMethodRadio" [value]="method.id"> {{method.name}}
+        </label>
+    </div>
+    <p>
+        {{ contactForm.value | json }}
+    </p>
+    <button class="btn btn-primary" [disabled]="contactForm.invalid">Submit</button>
+</form>
