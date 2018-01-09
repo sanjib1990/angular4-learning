@@ -1,0 +1,15 @@
+<h2>Posts:: </h2>
+<div class="alert alert-danger text-center" *ngIf="httpError">
+    {{ errorMessage }}
+</div>
+<form [formGroup] = 'form'>
+    <label for="title">Title: </label>
+    <input type="text" class="form-control" formControlName="title" #title (keyup.enter)="createPosts(title)" id="title">
+</form>
+<ul class="list-group">
+    <li class="list-group-item" [style.text-decoration]=" post.isDeleted ? 'line-through' : 'none'" *ngFor="let post of posts">
+        <button class="btn btn-primary btn-sm" [disabled]="post.isDeleted" (click)="updatePost(post)">update</button>
+        <button class="btn btn-primary btn-sm" [disabled]="post.isDeleted" (click)="deletePost(post)">Delete</button>
+        {{ post.title }} <span *ngIf="post.isRead">Read.. <i class="glyphicon glyphicon-ok"></i></span>
+    </li>
+</ul>

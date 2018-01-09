@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+.php_cs.cache
 
 # dependencies
 /node_modules

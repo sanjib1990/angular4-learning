@@ -1,0 +1,21 @@
+<h2>New Course Form</h2>
+<form [formGroup]="form">
+    <div class="form-group">
+        <input type="text"
+               id="topics"
+               class="form-control"
+               #topic
+               (keyup.enter)="onKeyPress(topic)"
+        >
+    </div>
+</form>
+
+<div class=" row">
+    <ul class="list-group">
+        <li class="list-group-item"
+            *ngFor="let topic of topics.controls"
+            (click)="removeCourse(topic)"
+        >{{topic.value}}
+        </li>
+    </ul>
+</div>
