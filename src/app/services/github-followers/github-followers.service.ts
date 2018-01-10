@@ -3,10 +3,11 @@ import {DataService} from '../data.service';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable()
-export class PostsService extends DataService {
-    protected url = 'http://jsonplaceholder.typicode.com/posts';
+export class GithubFollowersService extends DataService {
+    protected url = 'https://api.github.com/users/sanjib1990/followers';
 
     constructor(http: HttpClient) {
         super(http);
     }
+
 }

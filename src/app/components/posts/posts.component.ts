@@ -13,7 +13,7 @@ import {InvalidInputError} from '../../common/invalid.input.error';
 export class PostsComponent implements OnInit {
     public posts: any[];
     public httpError = false;
-    public errorMessage: string;
+    public errorMessage = 'Something terribly went wrong';
     public form: FormGroup;
 
     constructor(private postService: PostsService, fb: FormBuilder) {
@@ -26,14 +26,7 @@ export class PostsComponent implements OnInit {
         this
             .postService
             .get()
-            .subscribe(response => {
-                console.log(response);
-                this.posts = response.body;
-            }, (error: Response) => {
-                console.log(error);
-                this.errorMessage = error.statusText;
-                this.httpError = true;
-            });
+            .subscribe(posts => this.posts = posts);
     }
 
     public createPosts(input: HTMLInputElement) {
@@ -43,50 +36,42 @@ export class PostsComponent implements OnInit {
         this
             .postService
             .create(post)
-            .subscribe(response => {
-                console.log(response);
-                this.posts.splice(0, 0, response.body);
-            }, (error: AppError) => {
-                console.log(error);
-                this.errorMessage = 'Something went terribly wrong.';
-                this.httpError = true;
+            .subscribe(
+                newPost => post['id'] = newPost.id,
+                (error: AppError) => {
+                    if (error instanceof InvalidInputError) {
+                        this.errorMessage = 'Invalid Payload';
+                    } else {
+                        throw error;
+                    }
+                });
 
-                if (error instanceof InvalidInputError) {
-                    this.errorMessage = 'Invalid Payload';
-                }
-            });
+        this.posts.splice(0, 0, post);
     }
 
     public updatePost(post) {
-        this
-            .postService
-            .update(post.id, {isRead: true})
-            .subscribe(response => {
-                console.log(response);
-                post.isRead = true;
-            }, (error: Response) => {
-                console.log(error);
-                this.errorMessage = error.statusText;
-                this.httpError = true;
-            });
+        post.isRead = true;
+        this.postService.update(post.id, {isRead: true});
     }
 
     public deletePost(post) {
         this
             .postService
             .delete(post.id)
-            .subscribe(response => {
-                console.log(response);
-                post.isDeleted = true;
-            }, (error: AppError) => {
-                this.httpError = true;
-                if (error instanceof NotFoundError) {
-                    this.errorMessage = 'Item Not Found';
+            .subscribe(
+                null,
+                (error: AppError) => {
+                    this.httpError = true;
+                    if (error instanceof NotFoundError) {
+                        this.errorMessage = 'Item Not Found';
 
-                    return;
-                }
-                this.errorMessage = 'Something Went terribly wrong';
-            });
+                        return;
+                    }
+
+                    throw error;
+                });
+
+        post.isDeleted = true;
     }
 
 }

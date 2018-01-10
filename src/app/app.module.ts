@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {CoursesService} from './courses.service';
 import {CoursesComponent} from './Courses.component';
@@ -20,6 +20,14 @@ import {CourseFormComponent} from './components/course-form/course-form.componen
 import {ContactFormComponent} from './components/contact-form/contact-form.component';
 import {ChangePasswordComponent} from './components/change-password/change-password.component';
 import {NewCourseComponentComponent} from './components/new-course-component/new-course-component.component';
+import {AppErrorHandler} from './common/app.error.handler';
+import { GithubFollowersComponent } from './components/github-followers/github-followers.component';
+import {GithubFollowersService} from './services/github-followers/github-followers.service';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { HomeComponent } from './components/home/home.component';
+import { GithubProfileComponent } from './components/github-profile/github-profile.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
     declarations: [
@@ -37,18 +45,37 @@ import {NewCourseComponentComponent} from './components/new-course-component/new
         SignupFormComponent,
         NewCourseComponentComponent,
         ChangePasswordComponent,
-        PostsComponent
+        PostsComponent,
+        GithubFollowersComponent,
+        NavbarComponent,
+        HomeComponent,
+        GithubProfileComponent,
+        NotFoundComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpClientModule
+        HttpClientModule,
+        RouterModule.forRoot([
+            { path: '', component: HomeComponent},
+            { path: 'followers', component: GithubFollowersComponent},
+            { path: 'followers/profile/:userId/:username', component: GithubProfileComponent},
+            { path: 'posts', component: PostsComponent},
+            { path: 'change/password', component: ChangePasswordComponent},
+            { path: 'new/courses', component: NewCourseComponentComponent},
+            { path: 'signup', component: SignupFormComponent},
+            { path: 'courses', component: CoursesComponent},
+            { path: 'colors', component: ColorsComponent},
+            { path: '**', component: NotFoundComponent}
+        ])
     ],
     providers: [
         CoursesService,
         ColorService,
-        PostsService
+        PostsService,
+        GithubFollowersService,
+        {provide: ErrorHandler, useClass: AppErrorHandler}
     ],
     bootstrap: [AppComponent]
 })
