@@ -17,12 +17,12 @@ import {CoursesService} from './courses.service';
             <ul>
                 <li *ngFor="let course of getCourses()"> {{ course }}</li>
             </ul>
-            <input (keyup)="onKeyUp($event)" #field id="aaa">
+            <input (keyup)="onKeyUp()" #field id="aaa">
             <input (keyup)="onKeyUp()" [(ngModel)]="field1">
             <button
                 class="btn btn-primary"
                 [class.active]="isActive"
-                [style.backgroundColor]="isActive ? 'yellow' : 'red'" (click)="onSave($event)">
+                [style.backgroundColor]="isActive ? 'yellow' : 'red'" (click)="onSave()">
                 Save
             </button>
         </div>
@@ -37,7 +37,15 @@ export class CoursesComponent {
         price: 301.22,
         releaseDate: new Date(2018, 1, 1)
     };
-    public randString = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+    public randString = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor ' +
+        'incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco ' +
+        'laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit ' +
+        'esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa ' +
+        'qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, ' +
+        'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ' +
+        'exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in ' +
+        'reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat' +
+        ' cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
     private title = 'Courses Title';
     private courses: string[];
@@ -54,7 +62,7 @@ export class CoursesComponent {
         return this.service.getCourses();
     }
 
-    onSave($event) {
+    onSave() {
         this.isActive = !this.isActive;
     }
 
