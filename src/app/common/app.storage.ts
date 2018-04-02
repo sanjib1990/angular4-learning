@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import { StorageArgs } from '../contracts/storage.args';
+import { AppStorageContract } from '../contracts/app.storage.contract';
 
 @Injectable()
-export class AppStorage {
+export class AppStorage implements AppStorageContract {
     /**
      * @type {string}
      */
@@ -16,7 +18,7 @@ export class AppStorage {
      * Storage Constructor.
      */
     constructor() {
-        let fromLocalStorage = localStorage.getItem(this.appKey);
+        const fromLocalStorage = localStorage.getItem(this.appKey);
 
         if (fromLocalStorage) {
             this.items = JSON.parse(atob(fromLocalStorage));
@@ -28,7 +30,7 @@ export class AppStorage {
      *
      * @param {string} appKey
      */
-    public setAppKey(appKey = 'app') {
+    public setAppKey(appKey: string = 'app') {
         this.appKey = appKey;
     }
 
@@ -39,7 +41,7 @@ export class AppStorage {
      */
     public loadItems(appKey?: string) {
         appKey = appKey ? appKey : this.appKey;
-        let fromLocalStorage = localStorage.getItem(appKey);
+        const fromLocalStorage = localStorage.getItem(appKey);
 
         if (!fromLocalStorage) {
             return false;
@@ -95,9 +97,4 @@ export class AppStorage {
 
         this.updateStorage();
     }
-}
-
-export interface StorageArgs {
-    key: string;
-    value: any;
 }
