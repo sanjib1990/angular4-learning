@@ -22,6 +22,10 @@ export class OrderService {
                 headers: this.apiHeaders.getHeaders(),
                 observe: 'response'
             })
-            .map(response => response.body);
+            .map(response => response.body)
+            .catch(err => {
+                console.log(err);
+                return err;
+            });
     }
 }

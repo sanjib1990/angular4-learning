@@ -69,7 +69,7 @@ export class PostsComponent implements OnInit {
                     }
 
                     throw error;
-                });
+                })
 
         post.isDeleted = true;
     }
